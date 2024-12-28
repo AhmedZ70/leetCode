@@ -1,0 +1,33 @@
+class Solution {
+private:
+void dfs (const vector<vector<int>>& adjList, vector<bool>& visited, int node){
+    if (visited[node]){
+        return;
+    }
+    visited[node] = true; 
+    for (int neighbor : adjList[node]){
+        if (!visited[neighbor]){
+            dfs(adjList, visited, neighbor);
+        }
+    }
+}
+public:
+    int countComponents(int n, vector<vector<int>>& edges) {
+        // visted array 
+        vector<bool> visited(n, false);
+        vector<vector<int>> adjList(n);
+        for (auto edge : edges){
+            adjList[edge[0]].push_back[edge[1]];
+            adjList[edge[1]].push_bacl[edge[0]];
+        }
+        // adj list 
+         int res = 0; 
+         for (int i = 0; i < n; i++){
+            if (!visited[i]){
+                dfs(adjList, visted, i);
+                res++;
+            }
+         }
+         return res; 
+    }
+};
