@@ -3,7 +3,7 @@ public:
     int prefixCount(vector<string>& words, string pref) {
         int res =0;
         for (const string& word: words){
-            if (word.find(pref) == 0){
+            if (word.substr(0, pref.size()) == pref){
                 res++;
             }
         }
