@@ -1,12 +1,12 @@
 class Solution {
 public:
     int firstUniqChar(string s) {
-        unordered_map<char, int> letterCounter; 
+        vector<int> letterCounter(26, 0);
         for (char c : s){
-            letterCounter[c]++;
+            letterCounter[c - 'a']++; 
         }
         for (int i = 0; i < s.size(); i++){
-            if (letterCounter[s[i]] == 1){
+            if (letterCounter[s[i] - 'a'] == 1){
                 return i; 
             }
         }
