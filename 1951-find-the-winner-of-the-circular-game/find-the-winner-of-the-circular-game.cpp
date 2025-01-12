@@ -7,10 +7,9 @@ public:
         }
         int pos = 0;
         while (friends.size() > 1){
-            int removalIndex = (pos + k - 1) % friends.size();  
-            friends.erase(friends.begin() + removalIndex);
-            pos = removalIndex;
+            pos = (pos + k - 1) % friends.size();  
+            friends.erase(friends.begin() + pos);
         }
-        return friends.front();
+        return friends[0];
     }
 };
