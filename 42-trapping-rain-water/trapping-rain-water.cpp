@@ -7,21 +7,13 @@ public:
         int leftMax = 0, rightMax = 0; 
         while (left < right){
             if (height[left] < height[right]){
-                if (height[left] > leftMax){
-                    leftMax = height[left];
-                }
-                else {
-                    waterTrapped += leftMax - height[left];
-                }
+                height[left] > leftMax ? leftMax = height[left] : 
+                waterTrapped += (leftMax - height[left]);
                 left++; 
             }
             else {
-                if (height[right] > rightMax){
-                    rightMax = height[right];
-                }
-                else {
-                    waterTrapped += rightMax - height[right];
-                }
+                height[right] > rightMax ? rightMax = height[right]:
+                waterTrapped += rightMax - height[right];
                 right--; 
             }
         }
