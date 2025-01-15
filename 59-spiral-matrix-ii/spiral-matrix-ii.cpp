@@ -1,43 +1,31 @@
 class Solution {
-    int num = 1;
-    void traverseMatrix(vector<vector<int>>& matrix, int dir, int &x, int &y, int n){
-        // from current dir, go as much as u can 
-        // if reached end of the col/row or hit non 0 
-            // rotate 90 degrees 
-        if (matrix[x][y] != 0){
-            return;
-        }
-        int m = n;
-        int nx = x;
-        int ny = y;
-        while (nx >= 0 && nx < m && ny >= 0 && ny < n && matrix[nx][ny] == 0){
-            matrix[nx][ny] = num; 
-            nx += directions[dir].first;
-            ny += directions[dir].second;
-            num++;
-        }
-        nx -= directions[dir].first;
-        ny -= directions[dir].second;
-        dir = (dir + 1) % 4;
-        nx += directions[dir].first;
-        ny += directions[dir].second;
-        traverseMatrix(matrix, dir, nx, ny, n);
-    }
-    // dirctions : 0 -> up, 1 -> right, 2-> down, 3-> left
-    vector<pair<int, int>> directions = {
-        {-1,0}, {0,1}, {1,0}, {0, -1} 
+    int num = 1; // Current number to fill in the matrix
+    vector<pair<int, int>> directions = { // Directions: right, down, left, up
+        {0, 1}, {1, 0}, {0, -1}, {-1, 0}
     };
+
+    void traverseMatrix(vector<vector<int>>& matrix, int x, int y, int dir, int n) {
+        if (num > n * n) return; // Stop when all numbers are filled
+
+        matrix[x][y] = num++; // Fill the current cell
+
+        int nx = x + directions[dir].first;
+        int ny = y + directions[dir].second;
+
+        // Check if the next cell is out of bounds or already filled
+        if (nx < 0 || nx >= n || ny < 0 || ny >= n || matrix[nx][ny] != 0) {
+            dir = (dir + 1) % 4; // Change direction
+            nx = x + directions[dir].first;
+            ny = y + directions[dir].second;
+        }
+
+        traverseMatrix(matrix, nx, ny, dir, n); // Recurse to the next cell
+    }
+
 public:
     vector<vector<int>> generateMatrix(int n) {
-        
-        vector<vector<int>> matrix(n, vector<int>(n,0));
-        if (n == 1){
-            matrix[0][0] = 1; 
-            return matrix;
-        }
-        int dir = 1;
-        int x = 0, y = 0;
-        traverseMatrix(matrix, dir, x, y, n);
+        vector<vector<int>> matrix(n, vector<int>(n, 0));
+        traverseMatrix(matrix, 0, 0, 0, n); // Start at (0, 0) moving right (dir = 0)
         return matrix;
     }
 };
