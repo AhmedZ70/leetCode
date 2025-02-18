@@ -6,7 +6,7 @@ public:
             num[i] = i + '1';
         }
 
-        for (int i = 0; i <= pattern.size(); i++){
+        for (int i = 0; i < pattern.size(); i++){
             if (pattern[i] == 'D'){
                 int start = i; 
                 while (i < pattern.size() && pattern[i] == 'D'){
